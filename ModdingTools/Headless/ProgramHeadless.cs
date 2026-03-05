@@ -123,7 +123,8 @@ namespace ModdingTools.Headless
             {
                 if(o.KillEditor)
                 {
-                    Utils.KillEditor();
+                    Logger.Log(LogLevel.Info, $"Killing editor...");
+                    Utils.KillEditor(false); // no need for async here, we can hold up the line because we're just exiting right after anyways
                     return 0;
                 }
 

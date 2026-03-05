@@ -548,26 +548,23 @@ namespace ModdingTools.Properties {
         ///   Looks up a localized string similar to {
         /// &quot;version&quot;: &quot;2.0.0&quot;,
         /// &quot;tasks&quot;: [
-        ///  {
-        ///   &quot;label&quot;: &quot;Compile Mod&quot;,
-        ///   &quot;type&quot;: &quot;shell&quot;,
-        ///   &quot;command&quot;: &quot;##OMM:OMM_EXE_PATH##&quot;,
-        ///   &quot;args&quot;: [
-        ///    &quot;--mod&quot;,
-        ///    &quot;${workspaceFolderBasename}&quot;,
-        ///    &quot;--compilemod&quot;,
-        ///    &quot;--nologo&quot;
-        ///   ],
-        ///   &quot;problemMatcher&quot;: {
-        ///    &quot;owner&quot;: &quot;uc&quot;,
-        ///    &quot;fileLocation&quot;: [
-        ///     &quot;relative&quot;,
-        ///     &quot;${workspaceFolder}\\..\\&quot;
-        ///    ],
-        ///    &quot;source&quot;: &quot;Unrealscript Compilation&quot;,
-        ///    &quot;pattern&quot;: [
-        ///     {
-        ///      &quot;regexp&quot;: &quot;(?&lt;=(Error|Warn)\\]\\s{2})(.*(?=\\.uc)\\.uc).(\\d*).(?:\\s|:)* [rest of string was truncated]&quot;;.
+        ///    {
+        ///        &quot;label&quot;: &quot;Compile Mod&quot;,
+        ///        &quot;type&quot;: &quot;shell&quot;,
+        ///        &quot;command&quot;: &quot;##OMM:OMM_EXE_PATH##&quot;,
+        ///        &quot;args&quot;: [
+        ///            &quot;--mod&quot;,
+        ///            &quot;${workspaceFolderBasename}&quot;,
+        ///            &quot;--compilemod&quot;,
+        ///            &quot;--nologo&quot;
+        ///        ],
+        ///        &quot;problemMatcher&quot;: {
+        ///            &quot;owner&quot;: &quot;uc&quot;,
+        ///            &quot;fileLocation&quot;: [
+        ///                &quot;relative&quot;,
+        ///                &quot;${workspaceFolder}\\..\\&quot;
+        ///            ],
+        ///            &quot;source&quot;: &quot;Unrealscript Co [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string VSCodeTaskTemplate {
             get {

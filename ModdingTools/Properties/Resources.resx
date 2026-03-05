@@ -273,145 +273,146 @@
     <value>{
  "version": "2.0.0",
  "tasks": [
-  {
-   "label": "Compile Mod",
-   "type": "shell",
-   "command": "##OMM:OMM_EXE_PATH##",
-   "args": [
-    "--mod",
-    "${workspaceFolderBasename}",
-    "--compilemod",
-    "--nologo"
-   ],
-   "problemMatcher": {
-    "owner": "uc",
-    "fileLocation": [
-     "relative",
-     "${workspaceFolder}\\..\\"
-    ],
-    "source": "Unrealscript Compilation",
-    "pattern": [
-     {
-      "regexp": "(?&lt;=(Error|Warn)\\]\\s{2})(.*(?=\\.uc)\\.uc).(\\d*).(?:\\s|:)*(.*)",
-      "severity": 1,
-      "file": 2,
-      "line": 3,
-      "message": 4
-     }
-    ]
-   },
-   "group": "build"
-  },
-  {
-   "label": "Cook Mod",
-   "type": "shell",
-   "command": "##OMM:OMM_EXE_PATH##",
-   "args": [
-    "--mod",
-    "${workspaceFolderBasename}",
-    "--cookmod",
-    "--nologo"
-   ],
-   "group": "build"
-  },
-  {
-   "label": "Compile and Cook",
-   "dependsOrder": "sequence",
-   "dependsOn": [
-    "Compile Mod",
-    "Cook Mod"
-   ],
-   "group": "build",
-  },
-  {
-   "label": "Launch Editor",
-   "type": "shell",
-   "command": "##OMM:OMM_EXE_PATH##",
-   "args": [
-    "--editor",
-    "--nologo"
-   ],
-   "problemMatcher": [],
-   "group": "test"
-  },
-  {
-   "label": "Launch Game (No Workshop Mods)",
-   "type": "shell",
-   "command": "##OMM:OMM_EXE_PATH##",
-   "args": [
-    "--mod",
-    "${workspaceFolderBasename}",
-    "--testmap",
-    "${input:TestMap}",
-    "--nologo"
-   ],
-   "group": "test"
-  },
-  {
-   "label": "Launch Game (With Workshop Mods)",
-   "type": "shell",
-   "command": "##OMM:OMM_EXE_PATH##",
-   "args": [
-    "--mod",
-    "${workspaceFolderBasename}",
-    "--testmapall",
-    "${input:TestMap}",
-    "--nologo"
-   ],
-   "group": "test"
-  },
-  {
-   "label": "Compile &amp; Launch Editor",
-   "dependsOrder": "sequence",
-   "dependsOn": [
-    "Compile Mod",
-    "Launch Editor"
-   ],
-   "group": {
-    "kind": "build",
-    "isDefault": true
-   }
-  },
-  {
-   "label": "Compile, Cook &amp; Launch Game (No Workshop Mods)",
-   "dependsOrder": "sequence",
-   "dependsOn": [
-    "Compile and Cook",
-    "Launch Game (No Workshop Mods)"
-   ],
-   "group": {
-    "kind": "test",
-    "isDefault": true
-   },
-   "detail": "You will be asked to input a map name when the game is launched."
-  },
-  {
-   "label": "Compile, Cook &amp; Launch Game (With Workshop Mods)",
-   "dependsOrder": "sequence",
-   "dependsOn": [
-    "Compile and Cook",
-    "Launch Game (With Workshop Mods)"
-   ],
-   "group": "test",
-   "detail": "You will be asked to input a map name when the game is launched."
-  },
-  {
-   "label": "Kill Editor",
-   "type": "shell",
-   "command": "##OMM:OMM_EXE_PATH##",
-   "args": [
-    "--killeditor"
-   ],
-
-   "group": "none", // Utility, but VSCode doesn't have a group for that
-   "detail": "Instantly ends the editor process. Be careful of unsaved progress!",
-   "presentation": {
-    "echo": true,
-    "reveal": "never",
-    "focus": false
-   }
-  }
- ],
+    {
+        "label": "Compile Mod",
+        "type": "shell",
+        "command": "##OMM:OMM_EXE_PATH##",
+        "args": [
+            "--mod",
+            "${workspaceFolderBasename}",
+            "--compilemod",
+            "--nologo"
+        ],
+        "problemMatcher": {
+            "owner": "uc",
+            "fileLocation": [
+                "relative",
+                "${workspaceFolder}\\..\\"
+            ],
+            "source": "Unrealscript Compilation",
+            "pattern": [
+                {
+                    "regexp": "(?&lt;=(Error|Warn)\\]\\s{2})(.*(?=\\.uc)\\.uc).(\\d*).(?:\\s|:)*(.*)",
+                    "severity": 1,
+                    "file": 2,
+                    "line": 3,
+                    "message": 4
+                }
+            ]
+        },
+        "group": "build"
+    },
+    {
+        "label": "Cook Mod",
+        "type": "shell",
+        "command": "##OMM:OMM_EXE_PATH##",
+        "args": [
+            "--mod",
+            "${workspaceFolderBasename}",
+            "--cookmod",
+            "--nologo"
+        ],
+        "group": "build"
+    },
+    {
+        "label": "Compile and Cook",
+        "dependsOrder": "sequence",
+        "dependsOn": [
+            "Compile Mod",
+            "Cook Mod"
+        ],
+        "group": "build"
+    },
+    {
+        "label": "Launch Editor",
+        "type": "shell",
+        "command": "##OMM:OMM_EXE_PATH##",
+        "args": [
+            "--editor",
+            "--nologo"
+        ],
+        "problemMatcher": [],
+        "group": "test"
+    },
+    {
+        "label": "Launch Game (No Workshop Mods)",
+        "type": "shell",
+        "command": "##OMM:OMM_EXE_PATH##",
+        "args": [
+            "--mod",
+            "${workspaceFolderBasename}",
+            "--testmap",
+            "${input:TestMap}",
+            "--nologo"
+        ],
+        "group": "test"
+    },
+    {
+        "label": "Launch Game (With Workshop Mods)",
+        "type": "shell",
+        "command": "##OMM:OMM_EXE_PATH##",
+        "args": [
+            "--mod",
+            "${workspaceFolderBasename}",
+            "--testmapall",
+            "${input:TestMap}",
+            "--nologo"
+        ],
+        "group": "test"
+    },
+    {
+        "label": "Compile &amp; Launch Editor",
+        "dependsOrder": "sequence",
+        "dependsOn": [
+            "Compile Mod",
+            "Launch Editor"
+        ],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        }
+    },
+    {
+        "label": "Compile, Cook &amp; Launch Game (No Workshop Mods)",
+        "dependsOrder": "sequence",
+        "dependsOn": [
+            "Compile and Cook",
+            "Launch Game (No Workshop Mods)"
+        ],
+        "group": {
+            "kind": "test",
+            "isDefault": true
+        },
+        "detail": "You will be asked to input a map name when the game is launched."
+    },
+    {
+        "label": "Compile, Cook &amp; Launch Game (With Workshop Mods)",
+        "dependsOrder": "sequence",
+        "dependsOn": [
+            "Compile and Cook",
+            "Launch Game (With Workshop Mods)"
+        ],
+        "group": "test",
+        "detail": "You will be asked to input a map name when the game is launched."
+    },
+    {
+        "label": "Kill Editor",
+        "type": "shell",
+        "command": "##OMM:OMM_EXE_PATH##",
+        "args": [
+            "--killeditor",
+            "--nologo"
+        ],
+        "group": "none",
+        "detail": "Instantly ends the editor process. Be careful of unsaved progress!",
+        "presentation": {
+            "echo": true,
+            "reveal": "never",
+            "focus": false
+        },
+        "problemMatcher": []
+    }
+],
  "inputs": [
   // Map input for launching the game. Defaults to titlescreen
   {
