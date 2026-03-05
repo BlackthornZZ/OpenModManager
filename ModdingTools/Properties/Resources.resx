@@ -394,6 +394,22 @@
    ],
    "group": "test",
    "detail": "You will be asked to input a map name when the game is launched."
+  },
+  {
+   "label": "Kill Editor",
+   "type": "shell",
+   "command": "##OMM:OMM_EXE_PATH##",
+   "args": [
+    "--killeditor"
+   ],
+
+   "group": "none", // Utility, but VSCode doesn't have a group for that
+   "detail": "Instantly ends the editor process. Be careful of unsaved progress!",
+   "presentation": {
+    "echo": true,
+    "reveal": "never",
+    "focus": false
+   }
   }
  ],
  "inputs": [

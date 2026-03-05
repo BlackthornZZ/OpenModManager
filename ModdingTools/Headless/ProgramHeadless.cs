@@ -121,6 +121,12 @@ namespace ModdingTools.Headless
             }
             else
             {
+                if(o.KillEditor)
+                {
+                    Utils.KillEditor();
+                    return 0;
+                }
+
                 if (o.TestMapAll != null)
                 {
                     RunSteamAPI(true);

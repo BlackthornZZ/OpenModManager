@@ -20,6 +20,9 @@ namespace ModdingTools.Headless
         [Option(Group = "task", HelpText = "Launch editor")]
         public bool Editor { get; set; }
 
+        [Option(Group = "task", HelpText = "Kill editor")]
+        public bool KillEditor { get; set; }
+
         [Option("testmap", HelpText = "Test map", Group = "task")]
         public string TestMap { get; set; }
 
