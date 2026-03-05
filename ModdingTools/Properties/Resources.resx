@@ -300,6 +300,16 @@
                 }
             ]
         },
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": true,
+            "revealProblems": "onProblem",
+            "clear": true,
+            "group": "Building"
+        },
         "group": "build"
     },
     {
@@ -312,7 +322,16 @@
             "--cookmod",
             "--nologo"
         ],
-        "group": "build"
+        "group": "build",
+        "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": false,
+            "clear": true,
+            "group": "Building"
+        }
     },
     {
         "label": "Compile and Cook",
@@ -332,7 +351,17 @@
             "--nologo"
         ],
         "problemMatcher": [],
-        "group": "test"
+        "group": "test",
+
+        "presentation": {
+            "echo": true,
+            "reveal": "never",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": true,
+            "clear": false,
+            "group": "Testing"
+        }
     },
     {
         "label": "Launch Game (No Workshop Mods)",
@@ -345,7 +374,17 @@
             "${input:TestMap}",
             "--nologo"
         ],
-        "group": "test"
+        "group": "test",
+
+        "presentation": {
+            "echo": true,
+            "reveal": "never",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": true,
+            "clear": false,
+            "group": "Testing"
+        }
     },
     {
         "label": "Launch Game (With Workshop Mods)",
@@ -358,7 +397,17 @@
             "${input:TestMap}",
             "--nologo"
         ],
-        "group": "test"
+        "group": "test",
+
+        "presentation": {
+            "echo": true,
+            "reveal": "never",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": true,
+            "clear": false,
+            "group": "Testing"
+        }
     },
     {
         "label": "Compile &amp; Launch Editor",
