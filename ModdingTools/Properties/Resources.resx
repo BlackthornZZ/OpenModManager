@@ -271,89 +271,140 @@
   </data>
   <data name="VSCodeTaskTemplate" xml:space="preserve">
     <value>{
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "OMM: Compile",
-			"type": "shell",
-			"command": "##OMM:OMM_EXE_PATH##",
-			"args": [
-				"c",
-				"${file}"
-			],
-			"problemMatcher": [],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"label": "OMM: Compile and Cook",
-			"type": "shell",
-			"command": "##OMM:OMM_EXE_PATH##",
-			"args": [
-				"cc",
-				"${file}"
-			],
-			"problemMatcher": [],
-			"group": "build"
-		},
-        {
-			"label": "OMM: Compile and launch editor",
-			"type": "shell",
-			"command": "##OMM:OMM_EXE_PATH##",
-			"args": [
-				"ce",
-				"${file}"
-			],
-			"problemMatcher": [],
-			"group": "build"
-		},
-        {
-			"label": "OMM: Compile and Cook and launch game (only mods folder, last visited map)",
-			"type": "shell",
-			"command": "##OMM:OMM_EXE_PATH##",
-			"args": [
-				"cg",
-				"${file}"
-			],
-			"problemMatcher": [],
-			"group": "build"
-		},
-        {
-			"label": "OMM: Compile and Cook and launch game (only mods folder, choose map)",
-			"type": "shell",
-			"command": "##OMM:OMM_EXE_PATH##",
-			"args": [
-				"cm",
-				"${file}"
-			],
-			"problemMatcher": [],
-			"group": "build"
-		},
-        {
-			"label": "OMM: Compile and Cook and launch game (with workshop mods, last visited map)",
-			"type": "shell",
-			"command": "##OMM:OMM_EXE_PATH##",
-			"args": [
-				"ci",
-				"${file}"
-			],
-			"problemMatcher": [],
-			"group": "build"
-		},
-        {
-			"label": "OMM: Compile and Cook and launch game (with workshop mods, choose map)",
-			"type": "shell",
-			"command": "##OMM:OMM_EXE_PATH##",
-			"args": [
-				"cn",
-				"${file}"
-			],
-			"problemMatcher": [],
-			"group": "build"
-		}
-	]
+ "version": "2.0.0",
+ "tasks": [
+  {
+   "label": "Compile Mod",
+   "type": "shell",
+   "command": "##OMM:OMM_EXE_PATH##",
+   "args": [
+    "--mod",
+    "${workspaceFolderBasename}",
+    "--compilemod",
+    "--nologo"
+   ],
+   "problemMatcher": {
+    "owner": "uc",
+    "fileLocation": [
+     "relative",
+     "${workspaceFolder}\\..\\"
+    ],
+    "source": "Unrealscript Compilation",
+    "pattern": [
+     {
+      "regexp": "(?&lt;=(Error|Warn)\\]\\s{2})(.*(?=\\.uc)\\.uc).(\\d*).(?:\\s|:)*(.*)",
+      "severity": 1,
+      "file": 2,
+      "line": 3,
+      "message": 4
+     }
+    ]
+   },
+   "group": "build"
+  },
+  {
+   "label": "Cook Mod",
+   "type": "shell",
+   "command": "##OMM:OMM_EXE_PATH##",
+   "args": [
+    "--mod",
+    "${workspaceFolderBasename}",
+    "--cookmod",
+    "--nologo"
+   ],
+   "group": "build"
+  },
+  {
+   "label": "Compile and Cook",
+   "dependsOrder": "sequence",
+   "dependsOn": [
+    "Compile Mod",
+    "Cook Mod"
+   ],
+   "group": "build",
+  },
+  {
+   "label": "Launch Editor",
+   "type": "shell",
+   "command": "##OMM:OMM_EXE_PATH##",
+   "args": [
+    "--editor",
+    "--nologo"
+   ],
+   "problemMatcher": [],
+   "group": "test"
+  },
+  {
+   "label": "Launch Game (No Workshop Mods)",
+   "type": "shell",
+   "command": "##OMM:OMM_EXE_PATH##",
+   "args": [
+    "--mod",
+    "${workspaceFolderBasename}",
+    "--testmap",
+    "${input:TestMap}",
+    "--nologo"
+   ],
+   "group": "test"
+  },
+  {
+   "label": "Launch Game (With Workshop Mods)",
+   "type": "shell",
+   "command": "##OMM:OMM_EXE_PATH##",
+   "args": [
+    "--mod",
+    "${workspaceFolderBasename}",
+    "--testmapall",
+    "${input:TestMap}",
+    "--nologo"
+   ],
+   "group": "test"
+  },
+  {
+   "label": "Compile &amp; Launch Editor",
+   "dependsOrder": "sequence",
+   "dependsOn": [
+    "Compile Mod",
+    "Launch Editor"
+   ],
+   "group": {
+    "kind": "build",
+    "isDefault": true
+   }
+  },
+  {
+   "label": "Compile, Cook &amp; Launch Game (No Workshop Mods)",
+   "dependsOrder": "sequence",
+   "dependsOn": [
+    "Compile and Cook",
+    "Launch Game (No Workshop Mods)"
+   ],
+   "group": {
+    "kind": "test",
+    "isDefault": true
+   },
+   "detail": "You will be asked to input a map name when the game is launched."
+  },
+  {
+   "label": "Compile, Cook &amp; Launch Game (With Workshop Mods)",
+   "dependsOrder": "sequence",
+   "dependsOn": [
+    "Compile and Cook",
+    "Launch Game (With Workshop Mods)"
+   ],
+   "group": "test",
+   "detail": "You will be asked to input a map name when the game is launched."
+  }
+ ],
+ "inputs": [
+  // Map input for launching the game. Defaults to titlescreen
+  {
+   "id": "TestMap",
+   "description": "Map:",
+   "type": "promptString",
+   "default": "titlescreen_final",
+  }
+ ]
 }</value>
   </data>
   <data name="VSCodeWorkspaceTemplate" xml:space="preserve">
@@ -365,7 +416,7 @@
         "path": "./"
       },
       {
-        // Docs and release notes
+        // A Hat In Time Source
         "name": "AHiT Source",
         "path": "##AHIT:SRC_ROOT##"
       }

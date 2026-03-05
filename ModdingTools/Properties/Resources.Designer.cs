@@ -546,35 +546,28 @@ namespace ModdingTools.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///	&quot;version&quot;: &quot;2.0.0&quot;,
-        ///	&quot;tasks&quot;: [
-        ///		{
-        ///			&quot;label&quot;: &quot;OMM: Compile&quot;,
-        ///			&quot;type&quot;: &quot;shell&quot;,
-        ///			&quot;command&quot;: &quot;##OMM:OMM_EXE_PATH##&quot;,
-        ///			&quot;args&quot;: [
-        ///				&quot;c&quot;,
-        ///				&quot;${file}&quot;
-        ///			],
-        ///			&quot;problemMatcher&quot;: [],
-        ///			&quot;group&quot;: {
-        ///				&quot;kind&quot;: &quot;build&quot;,
-        ///				&quot;isDefault&quot;: true
-        ///			}
-        ///		},
-        ///		{
-        ///			&quot;label&quot;: &quot;OMM: Compile and Cook&quot;,
-        ///			&quot;type&quot;: &quot;shell&quot;,
-        ///			&quot;command&quot;: &quot;##OMM:OMM_EXE_PATH##&quot;,
-        ///			&quot;args&quot;: [
-        ///				&quot;cc&quot;,
-        ///				&quot;${file}&quot;
-        ///			],
-        ///			&quot;problemMatcher&quot;: [],
-        ///			&quot;group&quot;: &quot;build&quot;
-        ///		},
-        ///        {
-        ///			&quot;label&quot;: &quot;OMM: Comp [rest of string was truncated]&quot;;.
+        /// &quot;version&quot;: &quot;2.0.0&quot;,
+        /// &quot;tasks&quot;: [
+        ///  {
+        ///   &quot;label&quot;: &quot;Compile Mod&quot;,
+        ///   &quot;type&quot;: &quot;shell&quot;,
+        ///   &quot;command&quot;: &quot;##OMM:OMM_EXE_PATH##&quot;,
+        ///   &quot;args&quot;: [
+        ///    &quot;--mod&quot;,
+        ///    &quot;${workspaceFolderBasename}&quot;,
+        ///    &quot;--compilemod&quot;,
+        ///    &quot;--nologo&quot;
+        ///   ],
+        ///   &quot;problemMatcher&quot;: {
+        ///    &quot;owner&quot;: &quot;uc&quot;,
+        ///    &quot;fileLocation&quot;: [
+        ///     &quot;relative&quot;,
+        ///     &quot;${workspaceFolder}\\..\\&quot;
+        ///    ],
+        ///    &quot;source&quot;: &quot;Unrealscript Compilation&quot;,
+        ///    &quot;pattern&quot;: [
+        ///     {
+        ///      &quot;regexp&quot;: &quot;(?&lt;=(Error|Warn)\\]\\s{2})(.*(?=\\.uc)\\.uc).(\\d*).(?:\\s|:)* [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string VSCodeTaskTemplate {
             get {
@@ -591,7 +584,7 @@ namespace ModdingTools.Properties {
         ///        &quot;path&quot;: &quot;./&quot;
         ///      },
         ///      {
-        ///        // Docs and release notes
+        ///        // A Hat In Time Source
         ///        &quot;name&quot;: &quot;AHiT Source&quot;,
         ///        &quot;path&quot;: &quot;##AHIT:SRC_ROOT##&quot;
         ///      }
