@@ -42,7 +42,8 @@ namespace ModdingTools.Settings
             GAME_StartMap,
             GAME_StartMapWithoutWorkshopMods,
             ED_LaunchEditor,
-            ED_LaunchEditorWithSelectedMap
+            ED_LaunchEditorWithSelectedMap,
+            ENGINE_RunCommandlet
         }
 
         public static readonly Dictionary<ArgsDefaultsKeys, string> ArgsDefaults = new Dictionary<ArgsDefaultsKeys, string>() {
@@ -52,7 +53,8 @@ namespace ModdingTools.Settings
             { ArgsDefaultsKeys.GAME_StartMap,  "${MapName}" },
             { ArgsDefaultsKeys.GAME_StartMapWithoutWorkshopMods, "${MapName} -SEEKFREELOADING" },
             { ArgsDefaultsKeys.ED_LaunchEditor, "editor -NoGADWarning" },
-            { ArgsDefaultsKeys.ED_LaunchEditorWithSelectedMap, "editor -TARGETMOD=${ModFolderName} -NoGADWarning" }
+            { ArgsDefaultsKeys.ED_LaunchEditorWithSelectedMap, "editor -TARGETMOD=${ModFolderName} -NoGADWarning" },
+            { ArgsDefaultsKeys.ENGINE_RunCommandlet, "run ${CommandletName} ${CommandletParams}" }
         };
 
         public class ArgumentsItem

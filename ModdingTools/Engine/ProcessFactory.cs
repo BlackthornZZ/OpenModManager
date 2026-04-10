@@ -136,5 +136,16 @@ namespace ModdingTools.Engine
                 Path.GetDirectoryName(GameExecutablePath)
             );
         }
+
+        // FullCommandlet includes package: ModName.CommandletClass
+        public ExecutableArgumentsPair RunCommandlet(string FullCommandlet, string Params)
+        {
+            return new ExecutableArgumentsPair(
+                "Executing commandlet " + FullCommandlet,
+                EditorExecutablePath,
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.ENGINE_RunCommandlet).Replace("${CommandletName}", FullCommandlet).Replace("${CommandletParams}", Params),
+                Path.GetDirectoryName(GameExecutablePath)
+            );
+        }
     }
 }

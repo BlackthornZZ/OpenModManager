@@ -28,6 +28,10 @@ namespace ModdingTools.Headless
 
         [Option("testmapall", HelpText = "Test map (all mods)", Group = "task")]
         public string TestMapAll { get; set; }
+        [Option("commandlet", HelpText = "Run (custom!) commandlet", Group = "task")]
+        public string Commandlet { get; set; }
+        [Option("cmdargs", HelpText = "Optional commandlet arguments")]
+        public string CommandletArgs { get; set; }
 
         [Option("mod", HelpText = "Mod folder name")]
         public string ModName { get; set; }

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading;
 
@@ -164,8 +165,23 @@ namespace ModdingTools.Headless
                     return -36;
                 }
 
-                var mod = ds.GetMods(o.ModName);
+                if (o.Commandlet != null)
+                {
+                    // We need to trick the engine into loading our mod script file early. This lets it load when script files such as hatintimegamecontent.u are loaded.
+                    // If we don't do this, the engine won't load our mod script file which leads to it not finding the commandlet class, making it exit early.
+                    string CompiledScriptFile = Path.Combine(Path.Combine(Path.Combine(GameFinder.GetModsDir(), o.ModName), "CompiledScripts"), o.ModName+".u");
+                    File.Copy(CompiledScriptFile, Path.Combine(GameFinder.GetEditorCookedPcDir(), o.ModName+".u"), true);
 
+                    var runner = new ConsoleProcessRunner();
+                    runner.RunApp(Program.ProcFactory.RunCommandlet(o.ModName + "." + o.Commandlet, o.CommandletArgs == null ? string.Empty : o.CommandletArgs));
+
+                    // Return it to how it was before.
+                    File.Delete(Path.Combine(GameFinder.GetEditorCookedPcDir(), o.ModName+".u"));
+
+                    return 0;
+                }
+
+                var mod = ds.GetMods(o.ModName);
 
                 if (mod.Length > 0)
                 {
