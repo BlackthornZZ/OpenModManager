@@ -167,13 +167,40 @@ namespace ModdingTools.Headless
 
                 if (o.Commandlet != null)
                 {
+                    if(o.CommandletArgs != null && o.CommandletArgsPath != null)
+                    {
+                        Logger.Log(LogLevel.Error, $"Cannot specify cmdargsfile when cmdargs is present (or vice-versa)!");
+                        return -37;
+                    }
+
+                    string Args;
+                    if (o.CommandletArgs != null)
+                    {
+                        Args = o.CommandletArgs;
+                    }
+                    else if (o.CommandletArgsPath != null)
+                    {
+                        try
+                        {
+                            Args = File.ReadAllText(o.CommandletArgsPath);
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.Log(LogLevel.Error, "Error occured while reading commandlet args from file: ");
+                            Logger.Log(LogLevel.Error, e.Message);
+                            return -38;
+                        }
+                    }
+                    else
+                        Args = string.Empty;
+
                     // We need to trick the engine into loading our mod script file early. This lets it load when script files such as hatintimegamecontent.u are loaded.
                     // If we don't do this, the engine won't load our mod script file which leads to it not finding the commandlet class, making it exit early.
-                    string CompiledScriptFile = Path.Combine(Path.Combine(Path.Combine(GameFinder.GetModsDir(), o.ModName), "CompiledScripts"), o.ModName+".u");
+                    string CompiledScriptFile = Path.Combine(Path.Combine(Path.Combine(GameFinder.GetModsDir(), o.ModName), "CompiledScripts"), o.ModName + ".u");
                     File.Copy(CompiledScriptFile, Path.Combine(GameFinder.GetEditorCookedPcDir(), o.ModName+".u"), true);
 
                     var runner = new ConsoleProcessRunner();
-                    runner.RunApp(Program.ProcFactory.RunCommandlet(o.ModName + "." + o.Commandlet, o.CommandletArgs == null ? string.Empty : o.CommandletArgs));
+                    runner.RunApp(Program.ProcFactory.RunCommandlet(o.ModName + "." + o.Commandlet, Args));
 
                     // Return it to how it was before.
                     File.Delete(Path.Combine(GameFinder.GetEditorCookedPcDir(), o.ModName+".u"));

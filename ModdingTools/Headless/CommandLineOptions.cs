@@ -32,6 +32,8 @@ namespace ModdingTools.Headless
         public string Commandlet { get; set; }
         [Option("cmdargs", HelpText = "Optional commandlet arguments")]
         public string CommandletArgs { get; set; }
+        [Option("cmdargsfile", HelpText = "Optional path to a file with commandlet arguments. Incompatible with cmdargs.")]
+        public string CommandletArgsPath {  get; set; }
 
         [Option("mod", HelpText = "Mod folder name")]
         public string ModName { get; set; }
