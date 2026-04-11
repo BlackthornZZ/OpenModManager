@@ -352,7 +352,6 @@
         ],
         "problemMatcher": [],
         "group": "test",
-
         "presentation": {
             "echo": true,
             "reveal": "never",
@@ -375,7 +374,6 @@
             "--nologo"
         ],
         "group": "test",
-
         "presentation": {
             "echo": true,
             "reveal": "never",
@@ -398,7 +396,6 @@
             "--nologo"
         ],
         "group": "test",
-
         "presentation": {
             "echo": true,
             "reveal": "never",
@@ -460,6 +457,32 @@
             "focus": false
         },
         "problemMatcher": []
+    },
+    {
+        "label": "Run Commandlet",
+        "detail": "You MUST have a class that extends Commandlet open for this to work!",
+        "type": "shell",
+        "command": "##OMM:OMM_EXE_PATH##",
+        "args": [
+            "--commandlet",
+            "${fileBasenameNoExtension}",
+            "--mod",
+            "${workspaceFolderBasename}",
+            "--cmdargs",
+            "${input:CommandletArgs}",
+            "--nologo"
+        ],
+        "problemMatcher": []
+    },
+    {
+        "label": "Compile &amp; Run this Commandlet",
+        "detail": "You MUST have a class that extends Commandlet open for this to work!",
+        "dependsOrder": "sequence",
+        "dependsOn": [
+            "Compile Mod",
+            "Run Commandlet"
+        ],
+        "group": "test"
     }
 ],
  "inputs": [
@@ -469,6 +492,12 @@
    "description": "Map:",
    "type": "promptString",
    "default": "titlescreen_final",
+  },
+  {
+    "id": "CommandletArgs",
+    "description": "Optional Arguments:",
+    "type":"promptString",
+    "default": ""
   }
  ]
 }</value>
