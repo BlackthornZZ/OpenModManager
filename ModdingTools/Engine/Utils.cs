@@ -17,6 +17,7 @@ using ModdingTools.Headless;
 using System.Threading.Tasks;
 using ModdingTools.Settings;
 using System.Security.Principal;
+using ModdingTools.Logging;
 
 namespace ModdingTools.Engine
 {
@@ -405,6 +406,23 @@ namespace ModdingTools.Engine
                     string temppath = Path.Combine(destDirName, subdir.Name);
                     DirectoryCopy(subdir.FullName, temppath, copySubDirs);
                 }
+            }
+        }
+
+        // Recursive.
+        // If the file is currently in use by another process, we Thread.Sleep(1000) and try again.
+        // Only use if you're absolutely sure the file will become available!
+        public static void DeleteFileWithWait(string InFile)
+        {
+            try 
+            {
+                File.Delete(InFile);
+            }
+            catch(IOException e)
+            {
+                Logger.Log(CUFramework.Shared.LogLevel.Info, "File " + Path.GetFileName(InFile) + " could not be deleted, retrying in 1s...");
+                System.Threading.Thread.Sleep(1000);
+                DeleteFileWithWait(InFile);
             }
         }
     }

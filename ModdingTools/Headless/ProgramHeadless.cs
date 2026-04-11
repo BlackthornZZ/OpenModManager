@@ -173,7 +173,7 @@ namespace ModdingTools.Headless
                         return -37;
                     }
 
-                    string Args;
+                    string Args = string.Empty;
                     if (o.CommandletArgs != null)
                     {
                         Args = o.CommandletArgs;
@@ -191,19 +191,19 @@ namespace ModdingTools.Headless
                             return -38;
                         }
                     }
-                    else
-                        Args = string.Empty;
 
                     // We need to trick the engine into loading our mod script file early. This lets it load when script files such as hatintimegamecontent.u are loaded.
                     // If we don't do this, the engine won't load our mod script file which leads to it not finding the commandlet class, making it exit early.
                     string CompiledScriptFile = Path.Combine(Path.Combine(Path.Combine(GameFinder.GetModsDir(), o.ModName), "CompiledScripts"), o.ModName + ".u");
-                    File.Copy(CompiledScriptFile, Path.Combine(GameFinder.GetEditorCookedPcDir(), o.ModName+".u"), true);
+                    string EditorCookedPCCompiledScripts = Path.Combine(GameFinder.GetEditorCookedPcDir(), o.ModName + ".u");
+                    File.Copy(CompiledScriptFile, EditorCookedPCCompiledScripts, true);
 
                     var runner = new ConsoleProcessRunner();
                     runner.RunApp(Program.ProcFactory.RunCommandlet(o.ModName + "." + o.Commandlet, Args));
 
-                    // Return it to how it was before.
-                    File.Delete(Path.Combine(GameFinder.GetEditorCookedPcDir(), o.ModName+".u"));
+                    // On the off-chance that the commandlet runs into an error or crashes, it will keep the file open for a bit longer than expected.
+                    // Make sure we have access to and delete the file before exiting.
+                    Utils.DeleteFileWithWait(EditorCookedPCCompiledScripts);
 
                     return 0;
                 }
