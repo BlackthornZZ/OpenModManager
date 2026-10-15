@@ -201,22 +201,19 @@ namespace ModdingTools
                 Environment.Exit(1);
             }
 
-            Utils.UpdateAppId(734880);
+            // in-case RunSteamAPI shows us a message box we need to set this first
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-            bool steam = SteamAPI.Init();
-            if (!steam)
-            {
-                CUMessageBox.Show("SteamAPI initialization failed! (is Steam running/installed?)");
-                Environment.Exit(0);
-            }
+            // Utils.RunSteamAPI requires that this exists
+            ProcFactory = new ProcessFactory();
+            Utils.RunSteamAPI(true, true);
 
             if (!Environment.Is64BitOperatingSystem || !Environment.Is64BitProcess)
             {
                 CUMessageBox.Show("This app needs 64-bit operating environment and operating system!");
                 Environment.Exit(0);
             }
-
-            ProcFactory = new ProcessFactory();
 
             Automation.AddAutomationEventHandler(
                 eventId: WindowPattern.WindowOpenedEvent,
@@ -227,9 +224,6 @@ namespace ModdingTools
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()));
             Uploader = new ModUploader();
             SWS = new SteamWorkshopStorage(Path.Combine(Engine.GameFinder.GetModsDir(), "SteamWorkshop.ini"));
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
 
             if (workshopLockerMode)
             {

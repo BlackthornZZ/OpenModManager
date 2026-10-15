@@ -33,6 +33,7 @@ namespace ModdingTools.Settings
         public bool KillEditorBeforeCooking { get; set; } = false;
         public bool MafiaPunchGameToo { get; set; } = false;
         public bool AlwaysloadedWorkaround { get; set; } = false;
+        public bool AutoLaunchSteamIfNeeded { get; set; } = true;
 
         public enum ArgsDefaultsKeys
         {
@@ -43,7 +44,8 @@ namespace ModdingTools.Settings
             GAME_StartMapWithoutWorkshopMods,
             ED_LaunchEditor,
             ED_LaunchEditorWithSelectedMap,
-            ENGINE_RunCommandlet
+            ENGINE_RunCommandlet,
+            STEAM_AutoLaunch
         }
 
         public static readonly Dictionary<ArgsDefaultsKeys, string> ArgsDefaults = new Dictionary<ArgsDefaultsKeys, string>() {
@@ -54,7 +56,8 @@ namespace ModdingTools.Settings
             { ArgsDefaultsKeys.GAME_StartMapWithoutWorkshopMods, "${MapName} -SEEKFREELOADING" },
             { ArgsDefaultsKeys.ED_LaunchEditor, "editor -NoGADWarning" },
             { ArgsDefaultsKeys.ED_LaunchEditorWithSelectedMap, "editor -TARGETMOD=${ModFolderName} -NoGADWarning" },
-            { ArgsDefaultsKeys.ENGINE_RunCommandlet, "run ${CommandletName} ${CommandletParams}" }
+            { ArgsDefaultsKeys.ENGINE_RunCommandlet, "run ${CommandletName} ${CommandletParams}" },
+            { ArgsDefaultsKeys.STEAM_AutoLaunch, "-silent" }
         };
 
         public class ArgumentsItem

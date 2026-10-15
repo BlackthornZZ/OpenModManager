@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using CUFramework.Shared;
 using ModdingTools.Engine;
+using ModdingTools.GUI;
 using ModdingTools.Logging;
 using ModdingTools.Logging.Handlers;
 using ModdingTools.Modding;
@@ -131,7 +132,7 @@ namespace ModdingTools.Headless
 
                 if (o.TestMapAll != null)
                 {
-                    RunSteamAPI(true);
+                    Utils.RunSteamAPI(true);
                     var runner = new ConsoleProcessRunner();
                     runner.RunWithoutWait(Program.ProcFactory.StartMap(o.TestMapAll, true));
                     Thread.Sleep(100);
@@ -142,7 +143,7 @@ namespace ModdingTools.Headless
 
                 if (o.TestMap != null)
                 {
-                    RunSteamAPI(false);
+                    Utils.RunSteamAPI(false);
                     var runner = new ConsoleProcessRunner();
                     runner.RunWithoutWait(Program.ProcFactory.StartMap(o.TestMap));
                     Thread.Sleep(100);
@@ -153,7 +154,7 @@ namespace ModdingTools.Headless
                 
                 if (o.Editor && o.ModName == null)
                 {
-                    RunSteamAPI(false);
+                    Utils.RunSteamAPI(false);
                     var runner = new ConsoleProcessRunner();
                     runner.RunWithoutWait(Program.ProcFactory.LaunchEditor());
                     return 0;
@@ -258,17 +259,6 @@ namespace ModdingTools.Headless
                 }
             }
             return exitCode;
-        }
-
-        private static void RunSteamAPI(bool useAltSteamId)
-        {
-            Utils.UpdateAppId(useAltSteamId ? 253230 : 734880);
-            bool steam = SteamAPI.Init();
-            if (!steam)
-            {
-                Logger.Log(LogLevel.Error, "SteamAPI initialization failed! (is Steam running/installed?)");
-                Environment.Exit(0);
-            }
         }
 
         public static int CompileMod(string scriptPath, string command)

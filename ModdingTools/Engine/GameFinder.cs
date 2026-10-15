@@ -40,6 +40,8 @@ namespace ModdingTools.Engine
         }
 #endif
 
+        public static string GetSteamExecutableDir() => Path.Combine(GetSteamDir(), "steam.exe");
+
         public static string GetWorkshopDir()
         {
             var steamDir = GetSteamDir();

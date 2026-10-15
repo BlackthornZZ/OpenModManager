@@ -1,23 +1,26 @@
-﻿using ModdingTools.GUI;
+﻿using CUFramework.Dialogs;
+using CUFramework.Shared;
+using ModdingTools.GUI;
+using ModdingTools.Headless;
+using ModdingTools.Logging;
 using ModdingTools.Modding;
+using ModdingTools.Settings;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Linq.Expressions;
 using System.Drawing;
 using System.IO;
-using Steamworks;
-using ModdingTools.Headless;
-using System.Threading.Tasks;
-using ModdingTools.Settings;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Security.Principal;
-using ModdingTools.Logging;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ModdingTools.Engine
 {
@@ -423,6 +426,53 @@ namespace ModdingTools.Engine
                 Logger.Log(CUFramework.Shared.LogLevel.Info, "File " + Path.GetFileName(InFile) + " could not be deleted, retrying in 1s...");
                 System.Threading.Thread.Sleep(1000);
                 DeleteFileWithWait(InFile);
+            }
+        }
+
+        public static void RunSteamAPI(bool useAltSteamId, bool ShowMessageBoxes = false)
+        {
+            Utils.UpdateAppId(useAltSteamId ? 253230 : 734880);
+            bool steam = SteamAPI.Init();
+            if (!steam)
+            {
+                Logger.Log(LogLevel.Warn, "SteamAPI initialization failed! Steam might not be running, attempting to auto-start Steam...");
+
+                if (GameFinder.GetSteamExecutableDir() == null || !File.Exists(GameFinder.GetSteamExecutableDir()))
+                {
+                    if(ShowMessageBoxes)
+                        CUMessageBox.Show("Couldn't locate a Steam executable! Steam isn't installed, you have a \"bad\" Steam install, or you're using Proton.", "Failed to Auto-Launch Steam", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    Logger.Log(LogLevel.Error, "Couldn't locate a Steam executable! Steam either isn't installed, you have a \"bad\" Steam install, or you're using Proton.");
+                    Environment.Exit(0);
+                }
+
+                var runner = new ConsoleProcessRunner();
+                runner.RunWithoutWait(Program.ProcFactory.LaunchSteam());
+                const int MaximumSteamAPIInitAttempts = 30;
+                const int SteamAPIInitAttemptInterval = 1000;
+                int AttemptCount = 0;
+
+                while (AttemptCount < MaximumSteamAPIInitAttempts)
+                {
+                    steam = SteamAPI.Init();
+                    if (!steam)
+                    {
+                        Thread.Sleep(SteamAPIInitAttemptInterval);
+                        continue;
+                    }
+                    AttemptCount++;
+                }
+
+                if (!steam)
+                {
+                    if (ShowMessageBoxes)
+                        CUMessageBox.Show("Steam was launched but the Steam API could not be initialized after " +((MaximumSteamAPIInitAttempts * SteamAPIInitAttemptInterval) / 1000)+"s\n" +
+                            "You're probably not logged in!", "Failed to Auto-Launch Steam", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    Logger.Log(LogLevel.Error, "Steam was launched but the Steam API could not be initialized after " + MaximumSteamAPIInitAttempts + " attempts (interval of " + SteamAPIInitAttemptInterval + "ms)");
+                    Logger.Log(LogLevel.Error, "You're probably not logged in! Exiting...");
+                    Environment.Exit(0);
+                }
             }
         }
     }

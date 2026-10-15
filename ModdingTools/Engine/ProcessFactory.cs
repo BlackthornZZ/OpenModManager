@@ -147,5 +147,14 @@ namespace ModdingTools.Engine
                 Path.GetDirectoryName(GameExecutablePath)
             );
         }
+
+        public ExecutableArgumentsPair LaunchSteam()
+        {
+            return new ExecutableArgumentsPair(
+                "Attempting a Steam launch...", 
+                GameFinder.GetSteamExecutableDir(), 
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.STEAM_AutoLaunch), 
+                GameFinder.GetSteamDir());
+        }
     }
 }
